@@ -46,7 +46,7 @@ def split_datetime( dt ):
 	# split to dates and times
 	d, t = dt.split( ' ' )
 	date_list = d.split( ':' )
-	time_list = t.split( ':' )
+	# time_list = t.split( ':' )
 	# convert to integer
 	year, month, day = [ int(i) for i in date_list ]
 	# hour, minute, second = [ int(i) for i in time_list ]
@@ -78,8 +78,8 @@ if __name__ == '__main__':
 	# create a log file for retention of error files
 	log = open( log_filename, 'w' )
 	
-	# make an empty dict to fill
-	fn_datetime = {} 
+	# loop through the files and store the DateTime EXIF tag as a python datetime object
+	fn_datetime = {} # make an empty dict to hold output
 	for jpg in jpegs:
 		# condition to test if jpg has EXIF tags
 		if Image.open(jpg)._getexif() != None:
@@ -87,8 +87,8 @@ if __name__ == '__main__':
 		else:
 			# if there are no tags, log the filename as a problem file
 			log.writelines( jpg + '\n' )
-	# close the log file
-	log.close()
+			
+	log.close() # close the log file
 
 	# now lets find all of the unique dates and make folders for the outputs
 	unique_dates = set( fn_datetime.values() ) # set is a keyword that allows us 
@@ -102,6 +102,7 @@ if __name__ == '__main__':
 	# finally lets copy those problem files to a problem directory in the output_dir
 	log = open( log_filename, 'r' )
 	problems = log.read().splitlines()
+	log.close()
 
 	# make a new directory to hold the problems if one does not already exist
 	problem_dir = os.path.join( output_dir, 'problem_files' )
