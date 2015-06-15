@@ -67,8 +67,9 @@ if __name__ == '__main__':
 	from PIL.ExifTags import TAGS
 
 	# directory where the images are stored -- Change these to windows pathing
-	input_dir = '/Users/malindgren/Documents/AliceOrlich/restumpedonavbscript'
-	output_dir = '/Users/malindgren/Documents/AliceOrlich/restumpedonavbscript/outputs'
+	# NOTE the prefacing r to indicate raw string due to Windows slashes.
+	input_dir = r'C:\Users\malindgren\Documents\restumpedonavbscript'
+	output_dir = r'C:\Users\malindgren\Documents\restumpedonavbscript\outputs'
 	log_filename = os.path.join( output_dir, 'log_error_files.txt' )
 
 	# list all of the data in the input directory with extension .jpg 
@@ -87,11 +88,11 @@ if __name__ == '__main__':
 		else:
 			# if there are no tags, log the filename as a problem file
 			log.writelines( jpg + '\n' )
-			
+
 	log.close() # close the log file
 
 	# now lets find all of the unique dates and make folders for the outputs
-	unique_dates = set( fn_datetime.values() ) # set is a keyword that allows us 
+	unique_dates = set( fn_datetime.values() )
 
 	# lets create our needed output directories in the output_dir
 	new_dirs = [ dirs_from_datetime( output_dir, dt ) for dt in unique_dates ]
