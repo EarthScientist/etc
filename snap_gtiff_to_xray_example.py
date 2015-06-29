@@ -35,10 +35,11 @@ def coordinates( fn ):
 	eastings, northings = np.vectorize(rc2en, otypes=[np.float, np.float])(rows, cols)
 
 	# Project all longitudes, latitudes
-	longs, lats = transform(p1, p1.to_latlong(), eastings, northings)
-	return longs, lats
+	# longs, lats = transform(p1, p1.to_latlong(), eastings, northings)
+	# return longs, lats
+	return eastings, northings
 
-if __name_- == '__main__':
+if __name__ == '__main__':
 	import os, rasterio, xray
 	import pandas as pd
 	import numpy as np
@@ -57,6 +58,16 @@ if __name_- == '__main__':
 
 	# the only odd thing here is that there could be some issues with the lats / lons that needs sorting. 
 	# Potentially due to the number of unique lat longs in projected space to what is expected based on the coordinates of the numpy ndarrays....
-	new_arr = xray.DataArray( data, coords=( times, lons[:, 1],lats[1,:]), dims=('time', 'lon', 'lat'), name=None, attrs=None )
+	new_arr = xray.DataArray( data, coords=( times, np.unique(lats),np.unique(lons)), dims=('time', 'lat', 'lon'), name=None, attrs=None )
 
-	# now we can slice by the 
+	# now we can slice by the time dimension like this
+	time_1921 = new_arr.loc[ '1921' ]
+
+	# or groupby decades like this
+	# add a new variable and set it with the decades as the index
+	new_arr[ 'month_start' ] = ('time', ((times.year//10) *10) )
+
+	# use the new variable name to group by
+	decades = new_arr.groupby( 'month_start' )
+
+
