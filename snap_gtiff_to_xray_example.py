@@ -70,4 +70,15 @@ if __name__ == '__main__':
 	# use the new variable name to group by
 	decades = new_arr.groupby( 'month_start' )
 
+	# this is a potential way to perform a decadal mean calculation using the xray DataArray
+	decadal_means = new_arr.groupby( 'month_start' ).mean( 'time' )
 
+	# this is something that we should look at for ALFRESCO Processing as well: dask arrays
+	# import dask.array as da
+	# In [351]: tmp = da.from_array( data, chunks=(1000,10000) )
+
+	# In [352]: %timeit tmp + tmp
+	# 10 loops, best of 3: 29.1 ms per loop
+
+	# In [353]: %timeit data + data
+	# 1 loops, best of 3: 764 ms per loop
