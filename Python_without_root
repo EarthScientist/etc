@@ -30,8 +30,7 @@ cd virtualenvs
 
 4) Activate the environment
 
-cd ~/virtualenvs/p2.7/bin
-source ./activate
+source /virtualenvs/venv2/bin/activate
 
 
 
