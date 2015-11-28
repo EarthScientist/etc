@@ -13,6 +13,7 @@ tar xvfJ Python-2.7.10.tar.xz
 # python 3.5
 cd ~/src/Python-3.5.0
 make clean
+# [mac] ./configure --prefix=/Users/malindgren/.localpython
 ./configure --prefix=/home/UA/malindgren/.localpython
 make
 make install
@@ -20,6 +21,7 @@ make install
 # python 2.7
 cd ~/src/Python-2.7.10
 make clean
+# [mac] ./configure --prefix=/Users/malindgren/.localpython
 ./configure --prefix=/home/UA/malindgren/.localpython
 make
 make install
@@ -33,11 +35,12 @@ cd virtualenv-13.1.2/
 
 # 3) Create a virtualenv using your local python
 cd ~
+# [mac] ~/.localpython/bin/virtualenv v2 --python=/Users/malindgren/.localpython/bin/python2.7
+# [mac] ~/.localpython/bin/virtualenv v3 --python=/Users/malindgren/.localpython/bin/python3.5
 ~/.localpython/bin/virtualenv v2 --python=/home/UA/malindgren/.localpython/bin/python2.7
 ~/.localpython/bin/virtualenv v3 --python=/home/UA/malindgren/.localpython/bin/python3.5
 
 # 4) Activate the environment
-
 source v2/bin/activate # python2
 source v3/bin/activate # python3
 
