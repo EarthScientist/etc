@@ -1,0 +1,29 @@
+ssh-keygen -t rsa -f ~/.ssh/id_rsa -C "malindgren@137.229.94.86"
+
+# copy the key to the .ssh dir on the server
+scp .ssh/id_rsa.pub atlas.snap.uaf.edu:~/.ssh
+
+# ssh onto the server
+ssh atlas.snap.uaf.edu
+
+# change the directory to the ssh folder
+cd ~/.ssh/
+
+# move this to authorized keys folder
+cat id_rsa.pub > authorized_keys
+
+# make a file called config
+vim config
+
+# get into insert mode by typing i
+
+# add this line to the top of the file
+pubkeyauthentication yes
+
+# press esc then :wq to save changes and exit
+
+# check the permissions and reset them if needed
+ls -la
+chmod go-rwx *
+
+# END 
