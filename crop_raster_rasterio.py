@@ -52,5 +52,5 @@ def crop( large_rst, small_rst, output_path=None, compress=True, *args, **kwargs
 		output_filename = os.path.join( output_path, output_name )
 
 	with rasterio.open( output_filename, 'w', **meta ) as out:
-		out.write( 1, window_arr )
+		out.write( window_arr, 1 )
 	return output_filename
