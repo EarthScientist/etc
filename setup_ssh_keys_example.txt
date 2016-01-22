@@ -1,4 +1,4 @@
-ssh-keygen -t rsa -f ~/.ssh/id_rsa -C "malindgren@137.229.94.86"
+ssh-keygen -t rsa -f ~/.ssh/id_rsa -C "user@137.229.xx.xx"
 
 # copy the key to the .ssh dir on the server
 scp .ssh/id_rsa.pub atlas.snap.uaf.edu:~/.ssh
