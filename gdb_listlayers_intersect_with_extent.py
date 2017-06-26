@@ -7,11 +7,11 @@ import fiona, os, itertools
 import geopandas as gpd
 
 gdb_fn = '/Users/malindgren/Documents/repos/prajna/RH_SampleData.gdb'
-# extent_fn = '/Users/malindgren/Documents/repos/prajna/extent.shp' # psuedo
+extent_fn = '/Users/malindgren/Documents/repos/prajna/extent.shp' # psuedo
 
 # open the shapefile extent and get the geometry of the extent polygon
 ext_df = gpd.read_file( extent_fn )
-ext = ext_df.iloc[0][ 'geometry' ] # assumes its the first row in the dataframe is the extent poly
+ext = ext_df.iloc[0][ 'geometry' ] # assumes first row in df is extent poly
 
 # get the layernames from the gdb
 layernames = fiona.listlayers( gdb_fn )
