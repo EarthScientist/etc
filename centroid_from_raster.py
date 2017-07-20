@@ -16,6 +16,8 @@ def coordinates( fn=None, meta=None, numpy_array=None, input_crs=None, to_latlon
 						 If False all coordinates will be returned in input_crs
 	returns:
 		meshgrid of longitudes and latitudes
+
+	borrowed from here: https://gis.stackexchange.com/a/129857
 	''' 
 	
 	import rasterio
