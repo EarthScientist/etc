@@ -30,7 +30,7 @@ def coordinates( fn=None, meta=None, numpy_array=None, input_crs=None, to_latlon
 		with rasterio.open( fn ) as r:
 			T0 = r.affine  # upper-left pixel corner affine transform
 			p1 = Proj( r.crs )
-			A = r.read_band( 1 )  # pixel values
+			A = r.read( 1 )  # pixel values
 
 	elif (meta is not None) & (numpy_array is not None):
 		A = numpy_array
@@ -49,7 +49,7 @@ def coordinates( fn=None, meta=None, numpy_array=None, input_crs=None, to_latlon
 	T1 = T0 * Affine.translation( 0.5, 0.5 )
 	# Function to convert pixel row/column index (from 0) to easting/northing at centre
 	rc2en = lambda r, c: ( c, r ) * T1
-	# All eastings and northings (there is probably a faster way to do this)
+	# All eastings and northings -- this is much faster than np.apply_along_axis
 	eastings, northings = np.vectorize(rc2en, otypes=[np.float, np.float])(rows, cols)
 
 	if to_latlong == False:
