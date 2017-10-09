@@ -1,0 +1,42 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# INSTALL OPENCV on FEDORA 23 -- phobos.snap.uaf.edu
+# Michael Lindgren -- October 9, 2017
+# # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# # based on tutorial for Fed25 located at: http://charithe.github.io/installing-opencv-320-on-fedora-25.html
+
+# SSH into the server -- with Xwindow forwarding
+ssh -XY phobos.snap.uaf.edu
+
+# install the dependencies
+sudo dnf install cmake-gui ffmpeg-devel libpng-devel libjpeg-turbo-devel jasper-devel libtiff-devel tbb-devel eigen3-devel
+
+# clone opencv and set to the master branch
+git clone git@github.com:opencv/opencv.git && cd opencv && git checkout master && cd ..
+git clone git@github.com:opencv/opencv_contrib.git && cd opencv_contrib && git checkout master && cd ..
+
+# open the configuration GUI
+cd opencv
+cmake-gui .
+
+	# # NOTES ON WHAT HAPPENED WHEN ACCESSING CMAKE-GUI:
+		- had to add "build" to the end of the 'Where to build binaries' path
+		- pressed "config" -- let it run until it brought up a window of red lines
+		- searched for:
+			a.) WITH_FFMPEG  -->  and made sure it was set to ON
+			b.) OPENCV_EXTRA_MODULES_PATH  -->  and made sure it was set to /home/UA/malindgren/opencv_contrib/modules
+			c.) HDF set to HDF Parallel IO --> this was set not following any tutorial, just to have that support if we want parallel file access...
+		- pressed "config" again to reconfigure the changes I had made...
+		- pressed "generate" following the completion of "config"
+
+# build / install it
+cd build
+make -j8
+sudo make install
+
+# link the library to python venv -- NOT WORKING.... 
+# # I think that we need to tell the opencv which python we are using...  since we are not using Python from the root directory folder, I think we need to inform the installer that when in the cmake-gui...  Not sure how to do this, but will have to step back through the steps above to test it all out....
+
+python3 -m venv cvenv
+
+ln -s /usr/local/lib/python3.5/site-packages/cv2.cpython-35m-x86_64-linux-gnu.so cv2.so
