@@ -3,7 +3,12 @@
 # Michael Lindgren -- October 9, 2017
 # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+# --> NOTE THAT THIS IS IN DEVELOPMENT AND IS NOT WORKING AS DESIRED SEE BELOW LINK FOR A LIKELY BETTER SOURCE.
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # # based on tutorial for Fed25 located at: http://charithe.github.io/installing-opencv-320-on-fedora-25.html
+# # this could be a useful post too: https://www.pyimagesearch.com/2015/07/20/install-opencv-3-0-and-python-3-4-on-ubuntu/
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
 # SSH into the server -- with Xwindow forwarding
 ssh -XY phobos.snap.uaf.edu
@@ -15,28 +20,53 @@ sudo dnf install cmake-gui ffmpeg-devel libpng-devel libjpeg-turbo-devel jasper-
 git clone git@github.com:opencv/opencv.git && cd opencv && git checkout master && cd ..
 git clone git@github.com:opencv/opencv_contrib.git && cd opencv_contrib && git checkout master && cd ..
 
-# open the configuration GUI
+# set up the build dir in the opencv repo
+source ~/cvenv/bin/activate
 cd opencv
-cmake-gui .
-
-	# # NOTES ON WHAT HAPPENED WHEN ACCESSING CMAKE-GUI:
-		- had to add "build" to the end of the 'Where to build binaries' path
-		- pressed "config" -- let it run until it brought up a window of red lines
-		- searched for:
-			a.) WITH_FFMPEG  -->  and made sure it was set to ON
-			b.) OPENCV_EXTRA_MODULES_PATH  -->  and made sure it was set to /home/UA/malindgren/opencv_contrib/modules
-			c.) HDF set to HDF Parallel IO --> this was set not following any tutorial, just to have that support if we want parallel file access...
-		- pressed "config" again to reconfigure the changes I had made...
-		- pressed "generate" following the completion of "config"
-
-# build / install it
+mkdir build
 cd build
+
+# configure the install with cmake and a bunch of configs to work with non-system python installation
+(cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr -D INSTALL_C_EXAMPLES=OFF -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=ON -D WITH_FFMPEG=ON -D OPENCV_EXTRA_MODULES_PATH=/home/UA/malindgren/opencv_contrib/modules -D PYTHON3_EXECUTABLE=/home/UA/malindgren/.localpython/bin/python3.6m -D PYTHON3_INCLUDE_DIR=/home/UA/malindgren/.localpython/include/python3.6m -D PYTHON3_LIBRARY=/home/UA/malindgren/.localpython/lib/libpython3.6m.a -D PYTHON3_NUMPY_INCLUDE_DIRS=/home/UA/malindgren/.localpython/lib/python3.6/site-packages/numpy/core/include -D PYTHON3_PACKAGES_PATH=/home/UA/malindgren/.localpython/lib/python3.6/site-packages -D PYTHON_EXECUTABLE=/home/UA/malindgren/.localpython/bin/python3.6m -D PYTHON_INCLUDE=/home/UA/malindgren/.localpython/include/python3.6m -D PYTHON_LIBRARY=/home/UA/malindgren/.localpython/lib/libpython3.6m.a -D PYTHON_PACKAGES_PATH=/home/UA/malindgren/.localpython/lib/python3.6/site-packages -D PYTHON_NUMPY_INCLUDE_DIRS=/home/UA/malindgren/.localpython/lib/python3.6/site-packages/numpy/core/include -D PYTHON_DEFAULT_AVAILABLE=/home/UA/malindgren/.localpython/bin/python3.6m ..)
+
+# make / install opencv
 make -j8
 sudo make install
 
-# link the library to python venv -- NOT WORKING.... 
-# # I think that we need to tell the opencv which python we are using...  since we are not using Python from the root directory folder, I think we need to inform the installer that when in the cmake-gui...  Not sure how to do this, but will have to step back through the steps above to test it all out....
+# make a virtualenv from the python install used to install opencv
+cd ~
+~/.localpython/bin/python3.6m -m venv cvenv
 
-python3 -m venv cvenv
+# link the library to python venv
+ln -s /home/UA/malindgren/.localpython/lib/python3.6/site-packages/cv2.cpython-36m-x86_64-linux-gnu.so cv2.so
 
-ln -s /usr/local/lib/python3.5/site-packages/cv2.cpython-35m-x86_64-linux-gnu.so cv2.so
+# test it to make sure Python can see it
+source ~/cvenv/bin/activate
+python -c "import cv2"
+
+
+
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # SOME NOTES FROM USING THE `cmake-gui .` command to do it visually.
+# # notes on what happened when accessing the cmake-gui:
+	- had to add "build" to the end of the 'Where to build binaries' path
+	- pressed "config" -- let it run until it brought up a window of red lines
+	- searched for:
+		a.) CMAKE_INSTALL_PREFIX=$(python3 -c "import sys; print(sys.prefix)") \
+		b.) INSTALL_C_EXAMPLES=ON \
+		c.) INSTALL_PYTHON_EXAMPLES=ON \
+		e.) BUILD_EXAMPLES=ON \
+		f.) WITH_FFMPEG  -->  and made sure it was set to ON
+		g.) OPENCV_EXTRA_MODULES_PATH  -->  and made sure it was set to /home/UA/malindgren/opencv_contrib/modules
+		h.) PYTHON2_EXECUTABLE  --> /home/UA/malindgren/.localpython/bin/python2.7
+		i.) PYTHON2_INCLUDE_DIR  --> /home/UA/malindgren/.localpython/include/python2.7
+		j.) PYTHON3_EXECUTABLE  --> /home/UA/malindgren/cvenv/bin/python3
+		k.) PYTHON3_INCLUDE_DIR  --> /home/UA/malindgren/cvenv/include
+		l.) PYTHON3_LIBRARY  --> /home/UA/malindgren/.localpython/lib/libpython3.6m.a
+		m.) PYTHON3_NUMPY_INCLUDE_DIRS --> /home/UA/malindgren/cvenv/lib/python3.6/site-packages/numpy/core/include
+		n.) PYTHON3_PACKAGES_PATH  --> /home/UA/malindgren/cvenv/lib/python3.6/site-packages
+	- pressed "config" again to reconfigure the changes I had made...
+	- pressed "generate" following the completion of "config"
+	- File>Exit to get out of the Xwindow application.
