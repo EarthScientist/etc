@@ -1,13 +1,9 @@
-# # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # INSTALL OPENCV on FEDORA 23 -- phobos.snap.uaf.edu
 # Michael Lindgren -- October 9, 2017
-# # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-# --> NOTE THAT THIS IS IN DEVELOPMENT AND IS NOT WORKING AS DESIRED SEE BELOW LINK FOR A LIKELY BETTER SOURCE.
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
-# # based on tutorial for Fed25 located at: http://charithe.github.io/installing-opencv-320-on-fedora-25.html
-# # this could be a useful post too: https://www.pyimagesearch.com/2015/07/20/install-opencv-3-0-and-python-3-4-on-ubuntu/
+# -------------------------------------
+#  - based on Fed25 tutorial: http://charithe.github.io/installing-opencv-320-on-fedora-25.html
+#  - also see: https://www.pyimagesearch.com/2015/07/20/install-opencv-3-0-and-python-3-4-on-ubuntu/
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
 # SSH into the server -- with Xwindow forwarding
@@ -70,3 +66,4 @@ python -c "import cv2"
 	- pressed "config" again to reconfigure the changes I had made...
 	- pressed "generate" following the completion of "config"
 	- File>Exit to get out of the Xwindow application.
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
