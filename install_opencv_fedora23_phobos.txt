@@ -6,9 +6,6 @@
 #  - also see: https://www.pyimagesearch.com/2015/07/20/install-opencv-3-0-and-python-3-4-on-ubuntu/
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
-# SSH into the server -- with Xwindow forwarding
-ssh -XY phobos.snap.uaf.edu
-
 # install the dependencies
 sudo dnf install cmake-gui ffmpeg-devel libpng-devel libjpeg-turbo-devel jasper-devel libtiff-devel tbb-devel eigen3-devel
 
@@ -47,6 +44,8 @@ python -c "import cv2"
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # # # SOME NOTES FROM USING THE `cmake-gui .` command to do it visually.
 # # notes on what happened when accessing the cmake-gui:
+	# REMEMBER TO: SSH into the server -- with Xwindow forwarding for gui stuff on laptop
+	ssh -XY phobos.snap.uaf.edu
 	- had to add "build" to the end of the 'Where to build binaries' path
 	- pressed "config" -- let it run until it brought up a window of red lines
 	- searched for:
