@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## INSTALL PYTHON3 WITHOUT ROOT ACCESS
+## INSTALL PYTHON 3.6.2 WITHOUT ROOT ACCESS
 
 mkdir ~/src
 mkdir ~/.localpython
@@ -18,10 +18,11 @@ make
 make install
 
 
-# # # BELOW IS HOW WE SETUP THE INITIAL VIRTUAL ENVIRONMENT
-# ~/.localpython/bin/python3.6 -m venv cvenv
+# # # BELOW IS HOW WE SETUP A VIRTUAL ENVIRONMENT
+# ~/.localpython/bin/python3.6m -m venv cvenv
 # source ~/cvenv/bin/activate
 
+# # install some heavily used data / geo packages
 # pip install numpy
 # pip install 'ipython[all]'
-# pip install scipy rasterio fiona pandas geopandas scikit-image shapely
+# pip install scipy rasterio fiona pandas geopandas scikit-image scikit-learn shapely

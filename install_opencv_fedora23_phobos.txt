@@ -3,7 +3,11 @@
 # Michael Lindgren -- October 9, 2017
 # -------------------------------------
 #  - based on Fed25 tutorial: http://charithe.github.io/installing-opencv-320-on-fedora-25.html
-#  - also see: https://www.pyimagesearch.com/2015/07/20/install-opencv-3-0-and-python-3-4-on-ubuntu/
+#  - also see:
+#    https://www.pyimagesearch.com/2015/07/20/install-opencv-3-0-and-python-3-4-on-ubuntu/
+#    https://stackoverflow.com/questions/17287250/install-opencv-for-python-multiple-python-versions
+#    https://blog.kevin-brown.com/programming/2014/09/27/building-and-installing-opencv-3.html
+#  - this installation procedure requires admin access to the machine.
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
 # install the dependencies
@@ -49,10 +53,10 @@ python -c "import cv2"
 	- had to add "build" to the end of the 'Where to build binaries' path
 	- pressed "config" -- let it run until it brought up a window of red lines
 	- searched for:
-		a.) CMAKE_INSTALL_PREFIX=$(python3 -c "import sys; print(sys.prefix)") \
-		b.) INSTALL_C_EXAMPLES=ON \
-		c.) INSTALL_PYTHON_EXAMPLES=ON \
-		e.) BUILD_EXAMPLES=ON \
+		a.) CMAKE_INSTALL_PREFIX  --> $(python3 -c "import sys; print(sys.prefix)") \
+		b.) INSTALL_C_EXAMPLES  --> ON \
+		c.) INSTALL_PYTHON_EXAMPLES  --> ON \
+		e.) BUILD_EXAMPLES  --> ON \
 		f.) WITH_FFMPEG  -->  and made sure it was set to ON
 		g.) OPENCV_EXTRA_MODULES_PATH  -->  and made sure it was set to /home/UA/malindgren/opencv_contrib/modules
 		h.) PYTHON2_EXECUTABLE  --> /home/UA/malindgren/.localpython/bin/python2.7
