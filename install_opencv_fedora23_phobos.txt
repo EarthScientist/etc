@@ -35,6 +35,7 @@ cd ~
 ~/.localpython/bin/python3.6m -m venv cvenv
 
 # link the library to python venv
+cd ~/cvenv/lib/python3.6/site-packages
 ln -s /home/UA/malindgren/.localpython/lib/python3.6/site-packages/cv2.cpython-36m-x86_64-linux-gnu.so cv2.so
 
 # test it to make sure Python can see it
