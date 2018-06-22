@@ -126,8 +126,8 @@ if __name__ == '__main__':
 
     # parse some args
     parser = argparse.ArgumentParser( description='stack the hourly outputs from raw WRF outputs to NetCDF files of hourlies broken up by year.' )
-    parser.add_argument( "-b", "--base_path", action='store', dest='base_dir', type=str, help="input hourly directory with annual sub-dirs containing hourly WRF NetCDF outputs" )
-    parser.add_argument( "-o", "--output_path", action='store', dest='output_dir', type=str, help="output hourly directory with annual sub-dirs containing hourly WRF NetCDF outputs" )
+    parser.add_argument( "-b", "--base_path", action='store', dest='base_path', type=str, help="input hourly directory with annual sub-dirs containing hourly WRF NetCDF outputs" )
+    parser.add_argument( "-o", "--output_path", action='store', dest='output_path', type=str, help="output hourly directory with annual sub-dirs containing hourly WRF NetCDF outputs" )
     parser.add_argument( "-m", "--model", action='store', dest='model', type=str, help="model name to process" )
     parser.add_argument( "-s", "--scenario", action='store', dest='scenario', type=str, help="scenario name to process" )
     parser.add_argument( "-v", "--variable", action='store', dest='variable', type=str, help="variable name to process" )

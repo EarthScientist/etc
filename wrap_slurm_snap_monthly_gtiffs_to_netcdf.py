@@ -20,7 +20,7 @@ def run( fn, command ):
     return subprocess.call([ 'sbatch', fn ])
 
 if __name__ == '__main__':
-    import subprocess, os
+    import subprocess, os, itertools
 
     # base directory
     base_path = '/workspace/Shared/Tech_Projects/DeltaDownscaling/project_data/downscaled'
