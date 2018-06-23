@@ -72,8 +72,8 @@ def list_files( path ):
     files = glob.glob( os.path.join( path, '*.tif' ) )
 
     # break up filename attrs
-    break_names = [ os.path.basename(fn).split('.')[0].split('_') for fn in files ]
-    colnames = ['variable', 'metric', 'units', 'group', 'model', 'scenario', 'month', 'year']
+    break_names = [ os.path.basename(fn).split('.')[0].split('_')[-2:] for fn in files ]
+    colnames = ['month', 'year']
 
     # make a df and sort chronologically
     df = pd.DataFrame(break_names, columns=colnames )
