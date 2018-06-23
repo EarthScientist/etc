@@ -87,7 +87,7 @@ def make_nc( path, out_fn, variable ):
     files = list_files( path )
     
     pool = mp.Pool( 32 )
-    arr = np.dstack( pool.map( open_raster, files ) )
+    arr = np.array( pool.map( open_raster, files ) )
     pool.close()
     pool.join()
 
@@ -97,9 +97,9 @@ def make_nc( path, out_fn, variable ):
     end = str(int(files[-1].split( '.' )[0].split('_')[-1]) + 1)
     time = pd.date_range( begin, end, freq='M' )
 
-    new_ds = xr.Dataset({variable: (['x', 'y', 'time'], arr)},
-                    coords={'projection_x_coordinates': (['x', 'y'], x),
-                            'projection_y_coordinates': (['x', 'y'], y),
+    new_ds = xr.Dataset({variable: (['time','x', 'y'], arr)},
+                    coords={'xc': (['x', 'y'], x),
+                            'yc': (['x', 'y'], y),
                             'time':time })
 
     # write it back out to disk with compression encoding
