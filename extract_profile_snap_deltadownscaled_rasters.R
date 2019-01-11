@@ -13,7 +13,8 @@ input_path <- "./downscaled/CRU-TS40/historical/pr"
 pointSPDF <- readOGR("./shapefile/points.shp")
 
 # [NOTE]: for reprojection I would use the spTransform function from the rgdal package. A look at the man file with ?spTransform will show 
-#  ways to implement the method
+#  ways to implement the method -- try it first without the reprojection as the function 'extract' might handle that for you if there is a legit
+#  CRS attached to the points shapefile already.
 
 # stuff which will be iterators through the years/months
 years <- 1901:2009 # this should be changed to mimick the begin/end years of your data series
