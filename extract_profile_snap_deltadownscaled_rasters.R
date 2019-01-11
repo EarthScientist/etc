@@ -12,8 +12,11 @@ input_path <- "./downscaled/CRU-TS40/historical/pr"
 # [note]: you may have to reproject these points to the same reference system as the SNAP data (EPSG:3338)
 pointSPDF <- readOGR("./shapefile/points.shp")
 
+# [NOTE]: for reprojection I would use the spTransform function from the rgdal package. A look at the man file with ?spTransform will show 
+#  ways to implement the method
+
 # stuff which will be iterators through the years/months
-years <- 1901:2009
+years <- 1901:2009 # this should be changed to mimick the begin/end years of your data series
 months <- c("01","02","03","04","05","06","07","08","09","10","11","12")
 
 # naming stuff to get everything in the list chronologically
