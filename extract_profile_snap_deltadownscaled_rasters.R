@@ -10,8 +10,7 @@ input_path <- "./downscaled/CRU-TS40/historical/pr"
 
 # point to the point shapefile you want to use.
 # [note]: you may have to reproject these points to the same reference system as the SNAP data (EPSG:3338)
-# pointSPDF <- readOGR("./shapefile/points.shp")
-pointSPDF <- readOGR("./orig_all_pts_shape.shp")
+pointSPDF <- readOGR("./shapefile/points.shp")
 
 # stuff which will be iterators through the years/months
 years <- 1901:2009
