@@ -33,7 +33,6 @@ if __name__ == '__main__':
 	import multiprocessing as mp
 	from shapely.geometry import Point
 	from functools import partial
-
 	lat,lon = (64.8378, -147.7164)
 	point_name = 'Fairbanks'
 	base_path = '/workspace/Shared/Tech_Projects/DeltaDownscaling/project_data/downscaled'
